@@ -7,7 +7,7 @@ export default class HttpService {
 
   axios: AxiosInstance;
 
-  get(uri: string, params: any, config = {}) {
+  get(uri: string, params?: any, config = {}) {
     return this.axios.get(uri, { params, ...config }).then(this.success, this.fail);
   }
 
@@ -23,7 +23,7 @@ export default class HttpService {
     return this.axios.patch(uri, data, { ...config }).then(this.success, this.fail);
   }
 
-  delete(uri: string, params: any, config = {}) {
+  delete(uri: string, params?: any, config = {}) {
     return this.axios.delete(uri, { params, ...config }).then(this.success, this.fail);
   }
 

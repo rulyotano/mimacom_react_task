@@ -1,13 +1,13 @@
-// import minesweeperReducer, {
-//   ReducerState as MinesweeperState
-// } from "../components/app/minesweeper/_duck/reducer";
+import shopReducer, {
+  ReducerState as ShopReducerState
+} from "../components/app/shop/_duck/reducer";
 
 export interface ApplicationState {
-  // minesweeper: MinesweeperState;
+  shop: ShopReducerState;
 }
 
 export const reducers = {
-  // minesweeper: minesweeperReducer
+  shop: shopReducer
 };
 
 export interface AppThunkAction<TAction> {
