@@ -19,7 +19,7 @@ describe("components > app > shop > list > actions", () => {
   });
 
   describe("load()", () => {
-    test("Thunk load() should set isLoading, make one http get request and then dispatch data is loaded", async () => {
+    test("when all ok should set isLoading, make one http get request and then dispatch data is loaded", async () => {
       const dispatches = await Thunk(load).execute();
 
       expect(mockedHttp.get).toHaveBeenCalledWith(SHOP_URL);
@@ -27,7 +27,7 @@ describe("components > app > shop > list > actions", () => {
       expect(dispatches[0].getAction()).toEqual(setIsLoadingAction(true));
       expect(dispatches[1].getAction()).toEqual(dataLoadedAction(FAKE_RESPONSE));
     });
-    
+
     test("on error should only set and unset is loading", async () => {
       mockedHttp.get.mockReturnValue(Promise.reject());
 
@@ -36,6 +36,17 @@ describe("components > app > shop > list > actions", () => {
       expect(dispatches).toHaveLength(2);
       expect(dispatches[0].getAction()).toEqual(setIsLoadingAction(true));
       expect(dispatches[1].getAction()).toEqual(setIsLoadingAction(false));
+    });
+
+    test("when items comes from server with 'favorite' as string, should convert it to number", async () => {
+      const response = [ { ...FAKE_RESPONSE[0], favorite: "1" } ];
+      mockedHttp.get.mockReturnValue(Promise.resolve(response));
+
+      const dispatches = await Thunk(load).execute();
+
+      expect(dispatches[1].getAction()).toEqual(
+        dataLoadedAction([ { ...FAKE_RESPONSE[0], favorite: 1 } ])
+      );
     });
   });
 
@@ -66,7 +77,7 @@ describe("components > app > shop > list > actions", () => {
       price: 43,
       productDescription:
         "Porro tempore autem. Sunt molestias qui quod recusandae nemo quia optio. Nostrum aperiam officiis aut reprehenderit illo.",
-      favorite: "2"
+      favorite: 2
     }
   ];
 });

@@ -1,7 +1,9 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 import { Link } from "react-router-dom";
-import { Typography, IconButton, Hidden } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import Hidden from "@material-ui/core/Hidden";
 import {
   ArrowBackIosSharp as BackIcon,
   ArrowForwardIosSharp as NextIcon
