@@ -15,11 +15,13 @@ export const load = (): AppThunkAction<KnownShopListAction> => async (dispatch, 
 
   try {
     const response = (await http.get(SHOP_URL)) as Product[];
-    dispatch(dataLoadedAction(response));
+    dispatch(dataLoadedAction(response.map(normalizeProduct)));
   } catch (error) {
     dispatch(setIsLoadingAction(false));
   }
 };
+
+const normalizeProduct = (product: Product) => ({ ...product, favorite: Number(product.favorite) });
 
 export const setIsLoadingAction = (isLoading: boolean): SetIsLoadingAction => ({
   type: SET_IS_LOADING,

@@ -3,17 +3,20 @@ import { Theme } from "@material-ui/core/styles/createMuiTheme";
 
 export default (theme: Theme) =>
   createStyles({
-    overflowText: {
+    card: {},
+    cardActions: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1)
+    },
+    content: {
+    },
+    textDescription: {
       overflow: "hidden",
       textOverflow: "ellipsis",
-      whiteSpace: "nowrap"
+      height: theme.spacing(10)
     },
-    containerSpaceBetween: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center"
-    },
-    favoriteColor: {
-      color: theme.palette.error.light
+    media: {
+      height: 0,
+      paddingTop: "56.25%" // 16:9
     }
   });
