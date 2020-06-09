@@ -1,12 +1,12 @@
 import React from "react";
 import { shallow } from "enzyme";
-import {{pascalCase name}} from "../{{name}}";
+import SectionHeader from "../SectionHeader";
 
 // jest.mock("../defaultMenuItems");
 
-describe("components > ... > {{name}}", () => {
+describe("components > common > components > SectionHeader", () => {
   const componentCreation = (props: any) => {
-    return <{{pascalCase name}} {...props} />;
+    return <SectionHeader {...props} />;
   };
 
   const shallowWrapper = (props = {}) => {

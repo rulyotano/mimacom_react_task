@@ -1,3 +1,5 @@
 import * as React from "react";
 
-export default () => <div>Cart</div>;
+const Cart: React.FunctionComponent = () => <div>Cart</div>;
+
+export default Cart;

@@ -1,3 +1,5 @@
 import * as React from "react";
 
-export default () => <div>Wish List</div>;
+const WishList: React.FunctionComponent = () => <div>Wish List</div>;
+
+export default WishList;

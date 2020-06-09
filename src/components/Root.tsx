@@ -1,11 +1,17 @@
 import * as React from "react";
-import { Route, Redirect } from "react-router";
+import { Route, Redirect, Switch } from "react-router";
 import Layout from "./common/layout/Layout";
 import Shop from "./app/shop";
 
-export default () => (
+const Root: React.FunctionComponent = () => (
   <Layout>
-    <Route exact path="/" render={() => <Redirect to="shop" />} />
-    <Route path="/shop" component={Shop} />
+    <Switch>
+      <Route exact path="/">
+        <Redirect to="shop" />
+      </Route>
+      <Route path="/shop" component={Shop} />
+    </Switch>
   </Layout>
 );
+
+export default Root;

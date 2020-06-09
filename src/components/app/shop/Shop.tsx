@@ -5,10 +5,12 @@ import List from "./list";
 import Cart from "./cart";
 import Wishlist from "./wishlist";
 
-export default ({ match }: React.ReactPropTypes & RouteComponentProps) => (
+const Shop: React.FunctionComponent<RouteComponentProps> = ({ match }: RouteComponentProps) => (
   <Switch>
     <Route exact path={`${match.path}/`} component={List} />
     <Route path={`${match.path}/cart`} component={Cart} />
     <Route path={`${match.path}/wish-list`} component={Wishlist} />
   </Switch>
 );
+
+export default Shop;
