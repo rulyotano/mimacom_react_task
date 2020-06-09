@@ -1,8 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { CircularProgress, Typography, makeStyles } from "@material-ui/core";
 
-const Loading = (props: LoadingProps) => {
+const Loading: React.FunctionComponent<LoadingProps> = (props: LoadingProps) => {
   const { text } = props;
   const classes = useStyles();
   return (
@@ -14,7 +13,7 @@ const Loading = (props: LoadingProps) => {
 };
 
 interface LoadingProps {
-  text: string;
+  text?: string;
 }
 
 const useStyles = makeStyles(theme => ({
@@ -23,13 +22,5 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(6)
   }
 }));
-
-Loading.propTypes = {
-  text: PropTypes.string
-};
-
-Loading.defaultProps = {
-  text: ""
-};
 
 export default Loading;
