@@ -10,9 +10,6 @@ export default (theme: Theme) =>
       justifyContent: "space-between",
       alignItems: "center"
     },
-    headerItem: {
-      
-    },
-    title: {
-    },
+    headerItem: {},
+    title: {}
   });

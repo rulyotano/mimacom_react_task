@@ -8,8 +8,7 @@ export default (theme: Theme) =>
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1)
     },
-    content: {
-    },
+    content: {},
     textDescription: {
       overflow: "hidden",
       textOverflow: "ellipsis",
@@ -18,5 +17,33 @@ export default (theme: Theme) =>
     media: {
       height: 0,
       paddingTop: "56.25%" // 16:9
+    },
+    listRoot: {
+      display: "flex"
+    },
+    listContainer: {
+      flexGrow: 1
+    },
+    listCartContainer: {
+      width: theme.spacing(60)
+    },
+    listFullHeightContainer: {
+      height: `calc(100vh - ${theme.spacing(8)}px)`,
+      width: "100%",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "stretch"
+    },
+    listFullHeightBody: {
+      flexGrow: 1,
+      overflowY: "auto",
+      overflowX: "hidden"
+    },
+    listFullHeightFooter: {
+      height: theme.spacing(12)
+    },
+    verticalDivider: {
+      marginRight: theme.spacing(1),
+      marginLeft: theme.spacing(1)
     }
   });
