@@ -11,7 +11,7 @@ export default (props: { children?: React.ReactNode }) => {
   return (
     <React.Fragment>
       <div className={classes.root}>
-        <Container>{props.children}</Container>
+        <Container className={classes.container}>{props.children}</Container>
       </div>
     </React.Fragment>
   );

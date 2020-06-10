@@ -1,4 +1,5 @@
 import React from "react";
+import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
@@ -9,22 +10,28 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import styles from "./styles";
+import globalStyles from "../../../../styles";
 import CartList from "../../../../helpers/types/CartItem";
 import Price from "../../../common/components/price";
 
 const useStyles = makeStyles(styles);
+const useGlobalStyles = makeStyles(globalStyles);
 
 const CartListItem: React.FunctionComponent<CartItemProps> = (props: CartItemProps) => {
   const { item, addItem, removeItem } = props;
 
   const classes = useStyles();
+  const classesGlobal = useGlobalStyles();
 
   return (
     <Card className={classes.listItemContainer}>
       <CardMedia className={classes.listItemImage} image={item.imageUrl} title={item.name} />
       <div className={classes.listItemDetails}>
         <CardContent>
-          <Typography className={classes.listItemName} variant="h6">
+          <Typography
+            className={clsx(classesGlobal.overflowText, classes.listItemName)}
+            variant="subtitle2"
+          >
             {item.name}
           </Typography>
           <ButtonGroup size="small" variant="text">

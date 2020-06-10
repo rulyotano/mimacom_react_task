@@ -6,6 +6,7 @@ export default (theme: Theme) =>
     cartListContainer: {
       height: `calc(100vh - ${theme.spacing(8)}px)`,
       width: "100%",
+      minWidth: theme.spacing(40),
       display: "flex",
       flexDirection: "column",
       alignItems: "stretch"
@@ -25,23 +26,30 @@ export default (theme: Theme) =>
       fontSize: theme.spacing(3)
     },
     listItemContainer: {
-      display: "flex",
-      marginTop: theme.spacing(1)
+      // display: "flex",
+      marginTop: theme.spacing(1),
+      height: theme.spacing(10)
     },
     listItemImage: {
       width: theme.spacing(12),
-    },
-    listItemName: {
-      marginBottom: theme.spacing(1),
+      height: "100%",
+      float: "left"
     },
     listItemDetails: {
       display: "flex",
       flexDirection: "column",
-      flexGrow: 1
+      width: `calc(100% - ${theme.spacing(12)}px - ${theme.spacing(8)}px)`,
+      float: "left"
     },
     listItemPrice: {
       width: theme.spacing(8),
+      height: "100%",
       display: "flex",
-      alignItems: "center"
+      alignItems: "center",
+      float: "left"
+    },
+    listItemName: {
+      marginBottom: theme.spacing(1),
+      width: "100%"
     }
   });
