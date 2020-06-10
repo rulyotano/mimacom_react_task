@@ -1,7 +1,7 @@
 import { Reducer } from "redux-testkit";
 import reducer, { initialState } from "../reducer";
-import { DATA_LOADED, DataLoadedAction, SET_IS_LOADING } from "../types";
-import { Product } from "../../../../../../helpers/types/Product";
+import { DATA_LOADED, SET_IS_LOADING } from "../types";
+import { Product } from "../../../../../../helpers/types";
 
 describe("components > app > shop > list > reducer", () => {
   const emptyAction = { type: "" };

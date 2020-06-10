@@ -1,3 +1,3 @@
-import Shop from "./Shop";
+import ShopContainer from "./ShopContainer";
 
-export default Shop;
+export default ShopContainer;

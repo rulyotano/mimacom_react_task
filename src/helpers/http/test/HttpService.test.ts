@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosResponse, AxiosError } from "axios";
+import { AxiosInstance, AxiosError } from "axios";
 import HttpService from "../HttpService";
 
 jest.mock("axios");

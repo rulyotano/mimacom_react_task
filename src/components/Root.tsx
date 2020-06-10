@@ -9,7 +9,9 @@ const Root: React.FunctionComponent = () => (
       <Route exact path="/">
         <Redirect to="shop" />
       </Route>
-      <Route path="/shop" component={Shop} />
+      <Route path="/shop">
+        <Shop />
+      </Route>
     </Switch>
   </Layout>
 );
