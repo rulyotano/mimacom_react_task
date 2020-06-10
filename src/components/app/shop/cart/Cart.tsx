@@ -1,19 +1,47 @@
 import React from "react";
 import { useHistory } from "react-router";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
 import SectionHeader from "../../../common/components/sectionHeader";
+import CartItem from "../../../../helpers/types/CartItem";
+import styles from "./styles";
+import Price from "../../../common/components/price";
+import CartListItem from "./CartListItem";
 
-const Cart: React.FunctionComponent = () => {
+const useStyles = makeStyles(styles);
+
+const Cart: React.FunctionComponent<CartProps> = props => {
+  const { items, totalPrice, addItem, removeItem } = props;
   const history = useHistory();
+
+  const classes = useStyles();
 
   const goBack = () => history.goBack();
 
   return (
     <Box>
       <SectionHeader title="Cart" backToUrl="#" backOnClick={goBack} />
-      Cart
+      <div className={classes.cartListContainer}>
+        <div className={classes.cartItemsContainer}>
+          {items.map(it => (
+            <CartListItem key={it.id} item={it} addItem={addItem} removeItem={removeItem} />
+          ))}
+        </div>
+        <div className={classes.cartCheckoutContainer}>
+          <Button variant="outlined">Checkout</Button>
+          <Price className={classes.cartCheckoutPrice} value={totalPrice} />
+        </div>
+      </div>
     </Box>
   );
 };
+
+interface CartProps {
+  addItem: Function;
+  removeItem: Function;
+  items: CartItem[];
+  totalPrice: number;
+}
 
 export default Cart;

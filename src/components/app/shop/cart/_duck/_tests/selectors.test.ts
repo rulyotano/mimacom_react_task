@@ -1,7 +1,7 @@
 import { Selector } from "redux-testkit";
 import { ReducerState } from "../reducer";
 import { ApplicationState } from "../../../../../../../src/store";
-import { getItems, getCartCount } from "../selectors";
+import { getItems, getCartCount, getCartTotalPrice } from "../selectors";
 import CartItem from "../../../../../../helpers/types/CartItem";
 
 describe("components > app > shop > cart > selectors", () => {
@@ -37,5 +37,20 @@ describe("components > app > shop > cart > selectors", () => {
         })
       )
       .toReturn(FAKE_ITEMS.length);
+  });
+
+  test("getCartTotalPrice()", () => {
+    const FAKE_ITEMS = [
+      { id: "fake-item-id-1", price: 10, amount: 2 } as CartItem,
+      { id: "fake-item-id-2", price: 15, amount: 3 } as CartItem
+    ];
+
+    Selector(getCartTotalPrice)
+      .expect(
+        getStateWith({
+          items: FAKE_ITEMS
+        })
+      )
+      .toReturn(10 * 2 + 15 * 3);
   });
 });
