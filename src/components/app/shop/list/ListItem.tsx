@@ -10,6 +10,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import LoopIcon from "@material-ui/icons/Loop";
 import AddIcon from "@material-ui/icons/Add";
 import Tooltip from "@material-ui/core/Tooltip";
 import { Product } from "../../../../helpers/types";
@@ -25,7 +26,7 @@ const ListItem: React.FunctionComponent<ListItemProps> = (props: ListItemProps) 
   const classes = useStyles();
   const classesGlobal = useGlobalStyles();
 
-  const isSubmittingFavorite = Boolean(favoriteSubmitItemId);
+  const FavoriteShowIcon = favoriteSubmitItemId === product.id ? LoopIcon : FavoriteIcon;
   return (
     <Card className={classes.card}>
       <CardMedia className={classes.media} image={product.image_url} title={product.productName} />
@@ -51,9 +52,8 @@ const ListItem: React.FunctionComponent<ListItemProps> = (props: ListItemProps) 
         <IconButton
           onClick={() => toggleFavorite(product.id)}
           className={clsx({ [classesGlobal.favoriteColor]: product.favorite })}
-          disabled={isSubmittingFavorite}
         >
-          <FavoriteIcon />
+          <FavoriteShowIcon />
         </IconButton>
         <Typography className={classesGlobal.overflowText}>{product.stock} left</Typography>
         <Button onClick={() => addToCart(product)}>

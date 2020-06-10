@@ -17,7 +17,6 @@ const Shop: React.FunctionComponent<ShopProps> = ({ loadCart }: ShopProps) => {
 
   return (
     <Switch>
-      <Route exact path={`${match.path}/`} component={List} />
       <Route path={`${match.path}/cart`}>
         <Hidden mdUp>
           <Cart />
@@ -26,6 +25,7 @@ const Shop: React.FunctionComponent<ShopProps> = ({ loadCart }: ShopProps) => {
           <Redirect to={match.path} />
         </Hidden>
       </Route>
+      <Route exact path={`${match.path}/:favorites?`} component={List} />
       <Route path={`${match.path}/wish-list`} component={Wishlist} />
     </Switch>
   );

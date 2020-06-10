@@ -1,13 +1,16 @@
 import React from "react";
-import urlJoin from "url-join";
+import clsx from "clsx";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
-import { useRouteMatch } from "react-router";
+import { useRouteMatch, useParams, useHistory } from "react-router";
 import IconButton from "@material-ui/core/IconButton";
+import Fab from "@material-ui/core/Fab";
 import Badge from "@material-ui/core/Badge";
 import Hidden from "@material-ui/core/Hidden";
+import Tooltip from "@material-ui/core/Tooltip";
 import ShoppingCart from "@material-ui/icons/ShoppingCart";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 import { Product } from "../../../../helpers/types";
 import Loading from "../../../common/components/loading";
 import SectionHeader from "../../../common/components/sectionHeader";
@@ -28,14 +31,26 @@ export const List: React.FunctionComponent<ListPropsProps> = (props: ListPropsPr
     favoriteSubmitItemId
   } = props;
   const match = useRouteMatch();
+  const history = useHistory();
+  const params = useParams<ExpectedParams>();
+  const { favorites } = params;
 
   const classes = useStyles();
+  const isFavorites = Boolean(favorites);
+  const favoriteText = isFavorites ? "Show all items" : "Show favorite items";
+  const onFavoriteClick = () => {
+    if (isFavorites) {
+      history.push("/shop");
+    } else {
+      history.push(`${match.url}/favorites`);
+    }
+  };
 
   React.useEffect(
     () => {
-      load();
+      load(isFavorites);
     },
-    [ load ]
+    [ load, isFavorites ]
   );
 
   const GoToCartButton = (
@@ -46,7 +61,7 @@ export const List: React.FunctionComponent<ListPropsProps> = (props: ListPropsPr
     </IconButton>
   );
 
-  const cartUrl = urlJoin(match.url, "cart");
+  const cartUrl = "/shop/cart";
 
   return (
     <div className={classes.listRoot}>
@@ -59,12 +74,24 @@ export const List: React.FunctionComponent<ListPropsProps> = (props: ListPropsPr
         {isLoading ? (
           <Loading />
         ) : (
-          <Items
-            data={data}
-            addToCart={addToCart}
-            toggleFavorite={toggleFavorite}
-            favoriteSubmitItemId={favoriteSubmitItemId}
-          />
+          <React.Fragment>
+            <Items
+              data={data}
+              addToCart={addToCart}
+              toggleFavorite={toggleFavorite}
+              favoriteSubmitItemId={favoriteSubmitItemId}
+            />
+            <Tooltip title={favoriteText}>
+              <Fab
+                onClick={onFavoriteClick}
+                className={clsx(classes.favoritesButton, {
+                  [classes.favoritesButtonActive]: isFavorites
+                })}
+              >
+                <FavoriteIcon />
+              </Fab>
+            </Tooltip>
+          </React.Fragment>
         )}
       </Box>
 
@@ -86,6 +113,10 @@ interface ListPropsProps {
   cartCount?: number;
   favoriteSubmitItemId: string | null;
   toggleFavorite: Function;
+}
+
+interface ExpectedParams {
+  favorites?: string;
 }
 
 export default List;

@@ -10,11 +10,16 @@ import { Product } from "../../../../../helpers/types";
 import http from "../../../../../helpers/http";
 import { SHOP_URL } from "../../_duck/types";
 
-export const load = (): AppThunkAction<KnownShopListAction> => async (dispatch, getState) => {
+export const load = (favorite: boolean = false): AppThunkAction<KnownShopListAction> => async (
+  dispatch,
+  getState
+) => {
   dispatch(setIsLoadingAction(true));
 
+  const args = favorite ? { favorite: 1 } : {};
+
   try {
-    const response = (await http.get(SHOP_URL)) as Product[];
+    const response = (await http.get(SHOP_URL, args)) as Product[];
     dispatch(dataLoadedAction(response.map(normalizeProduct)));
   } catch (error) {
     dispatch(setIsLoadingAction(false));
