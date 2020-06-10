@@ -8,13 +8,16 @@ import { getData, getIsLoading } from "./_duck/selectors";
 import { addItem } from "../cart/_duck/actions";
 import { SetItemsAction } from "../cart/_duck/types";
 import { getCartCount } from "../cart/_duck/selectors";
+import { getCurrentSubmittingId } from "../wishlist/_duck/selectors";
+import { toggleFavoriteStatus } from "../wishlist/_duck/actions";
 import { Product } from "../../../../helpers/types";
 
 function mapStateToProps(state: ApplicationState) {
   return {
     data: getData(state),
     isLoading: getIsLoading(state),
-    cartCount: getCartCount(state)
+    cartCount: getCartCount(state),
+    favoriteSubmitItemId: getCurrentSubmittingId(state)
   };
 }
 
@@ -25,7 +28,8 @@ function mapDispatchToProps(
     load: () => dispatch(load()),
     addToCart: (item: Product) => {
       dispatch(addItem(item));
-    }
+    },
+    toggleFavorite: (itemId: string) => dispatch(toggleFavoriteStatus(itemId))
   };
 }
 

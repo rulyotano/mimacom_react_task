@@ -10,7 +10,12 @@ import styles from "./styles";
 
 const useStyles = makeStyles(styles);
 
-const ListItemsCollection: React.FunctionComponent<ItemsProps> = ({ data, addToCart }) => {
+const ListItemsCollection: React.FunctionComponent<ItemsProps> = ({
+  data,
+  addToCart,
+  favoriteSubmitItemId,
+  toggleFavorite
+}) => {
   const PAGE_SIZE = 12;
   const totalPages = Math.ceil(data.length / PAGE_SIZE);
 
@@ -31,14 +36,19 @@ const ListItemsCollection: React.FunctionComponent<ItemsProps> = ({ data, addToC
           <Grid container spacing={1}>
             {pagedItems.map(it => (
               <Grid key={it.id} item lg={3} md={4} sm={6}>
-                <ListItem product={it} addToCart={addToCart} />
+                <ListItem
+                  product={it}
+                  addToCart={addToCart}
+                  favoriteSubmitItemId={favoriteSubmitItemId}
+                  toggleFavorite={toggleFavorite}
+                />
               </Grid>
             ))}
           </Grid>
         </div>
         <div className={classes.listFullHeightFooter}>
           <Box display="flex" alignItems="center" justifyContent="center" padding={2}>
-            <Pagination count={totalPages} page={page} onChange={onPageChange} size="small"/>
+            <Pagination count={totalPages} page={page} onChange={onPageChange} size="small" />
           </Box>
         </div>
       </div>
@@ -49,6 +59,8 @@ const ListItemsCollection: React.FunctionComponent<ItemsProps> = ({ data, addToC
 interface ItemsProps {
   data: Product[];
   addToCart: Function;
+  favoriteSubmitItemId: string | null;
+  toggleFavorite: Function;
 }
 
 export default ListItemsCollection;

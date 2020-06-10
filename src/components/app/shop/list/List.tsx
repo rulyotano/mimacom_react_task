@@ -18,7 +18,15 @@ import Cart from "../cart";
 const useStyles = makeStyles(styles);
 
 export const List: React.FunctionComponent<ListPropsProps> = (props: ListPropsProps) => {
-  const { isLoading, data = [], load, addToCart, cartCount } = props;
+  const {
+    isLoading,
+    data = [],
+    load,
+    addToCart,
+    cartCount,
+    toggleFavorite,
+    favoriteSubmitItemId
+  } = props;
   const match = useRouteMatch();
 
   const classes = useStyles();
@@ -48,11 +56,20 @@ export const List: React.FunctionComponent<ListPropsProps> = (props: ListPropsPr
           nextCustomComponent={GoToCartButton}
           nextToUrl={cartUrl}
         />
-        {isLoading ? <Loading /> : <Items data={data} addToCart={addToCart} />}
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <Items
+            data={data}
+            addToCart={addToCart}
+            toggleFavorite={toggleFavorite}
+            favoriteSubmitItemId={favoriteSubmitItemId}
+          />
+        )}
       </Box>
 
       <Hidden smDown>
-        <Divider orientation="vertical" flexItem  className={classes.verticalDivider}/>
+        <Divider orientation="vertical" flexItem className={classes.verticalDivider} />
         <Box className={classes.listCartContainer}>
           <Cart />
         </Box>
@@ -67,6 +84,8 @@ interface ListPropsProps {
   load: Function;
   addToCart: Function;
   cartCount?: number;
+  favoriteSubmitItemId: string | null;
+  toggleFavorite: Function;
 }
 
 export default List;
