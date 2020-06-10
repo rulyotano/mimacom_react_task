@@ -1,9 +1,11 @@
 import { Thunk } from "redux-testkit";
+import { mocked } from "ts-jest";
 import { SAMPLE_ACTION_TYPE } from "../types";
 import { sampleAction, sampleThunk } from "../actions";
 import { sampleSelector } from "../selectors";
 
 jest.mock("../selectors");
+const mockedSampleSelector = mocked(sampleSelector, true);
 
 describe("components > ... > actions", () => {
   afterEach(() => {

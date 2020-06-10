@@ -1,4 +1,5 @@
 import React from "react";
+import { MemoryRouter } from "react-router";
 import { shallow } from "enzyme";
 import List from "../List";
 
@@ -8,7 +9,11 @@ describe("components > app > shop > list > List", () => {
   const l = { t: jest.fn() };
 
   const componentCreation = (props: any) => {
-    return <List {...props} />;
+    return (
+      <MemoryRouter>
+        <List {...props} />
+      </MemoryRouter>
+    );
   };
 
   const shallowWrapper = (props = {}) => {
@@ -16,7 +21,7 @@ describe("components > app > shop > list > List", () => {
   };
 
   beforeEach(() => {});
-  
+
   afterEach(() => {});
 
   test("Component is mounted", () => {

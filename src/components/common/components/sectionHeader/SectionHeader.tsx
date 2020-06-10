@@ -13,19 +13,36 @@ import styles from "./styles";
 const useStyles = makeStyles(styles);
 
 const SectionHeader: React.FunctionComponent<SectionHeaderProps> = (props: SectionHeaderProps) => {
-  const { title, backToUrl, nextToUrl } = props;
+  const {
+    title,
+    backToUrl,
+    nextToUrl,
+    backCustomComponent,
+    nextCustomComponent,
+    backOnClick = () => {},
+    nextOnClick = () => {}
+  } = props;
+
   const classes = useStyles();
+
+  const BackComponent = backCustomComponent || (
+    <IconButton onClick={() => backOnClick()}>
+      <BackIcon />
+    </IconButton>
+  );
+
+  const NextComponent = nextCustomComponent || (
+    <IconButton onClick={() => nextOnClick()}>
+      <NextIcon />
+    </IconButton>
+  );
 
   return (
     <div className={classes.sectionHeader}>
       <div>
         {backToUrl ? (
           <Hidden mdUp>
-            <Link to={backToUrl}>
-              <IconButton>
-                <BackIcon />
-              </IconButton>
-            </Link>
+            <Link to={backToUrl}>{BackComponent}</Link>
           </Hidden>
         ) : null}
       </div>
@@ -35,11 +52,7 @@ const SectionHeader: React.FunctionComponent<SectionHeaderProps> = (props: Secti
       <div>
         {nextToUrl ? (
           <Hidden mdUp>
-            <Link to={nextToUrl}>
-              <IconButton>
-                <NextIcon />
-              </IconButton>
-            </Link>
+            <Link to={nextToUrl}>{NextComponent}</Link>
           </Hidden>
         ) : null}
       </div>
@@ -51,6 +64,10 @@ interface SectionHeaderProps {
   title?: string;
   backToUrl?: string;
   nextToUrl?: string;
+  backCustomComponent?: React.ReactNode;
+  nextCustomComponent?: React.ReactNode;
+  backOnClick?: Function;
+  nextOnClick?: Function;
 }
 
 export default SectionHeader;
