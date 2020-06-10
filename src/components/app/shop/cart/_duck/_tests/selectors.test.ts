@@ -1,7 +1,7 @@
 import { Selector } from "redux-testkit";
 import { ReducerState } from "../reducer";
 import { ApplicationState } from "../../../../../../../src/store";
-import { getItems } from "../selectors";
+import { getItems, getCartCount } from "../selectors";
 import CartItem from "../../../../../../helpers/types/CartItem";
 
 describe("components > app > shop > cart > selectors", () => {
@@ -23,5 +23,19 @@ describe("components > app > shop > cart > selectors", () => {
         })
       )
       .toReturn(FAKE_ITEMS);
+  });
+
+  test("getCartCount() should return 'items' in state", () => {
+    const FAKE_ITEMS = [
+      { id: "fake-item-id-1" } as CartItem,
+      { id: "fake-item-id-2" } as CartItem
+    ];
+    Selector(getCartCount)
+      .expect(
+        getStateWith({
+          items: FAKE_ITEMS
+        })
+      )
+      .toReturn(FAKE_ITEMS.length);
   });
 });

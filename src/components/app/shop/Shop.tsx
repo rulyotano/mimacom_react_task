@@ -9,7 +9,7 @@ const Shop: React.FunctionComponent<ShopProps> = ({ loadCart }: ShopProps) => {
 
   React.useEffect(() => {
     loadCart();
-  }, []);
+  }, [ loadCart ]);
 
   return (
     <Switch>

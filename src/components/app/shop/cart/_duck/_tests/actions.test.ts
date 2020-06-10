@@ -2,10 +2,19 @@ import { Thunk } from "redux-testkit";
 import { mocked } from "ts-jest";
 import { findIndex } from "lodash";
 import { SET_ITEMS } from "../types";
-import { addItem, loadSaved, removeItem, save, setItemsAction, CART_STORAGE_KEY } from "../actions";
+import {
+  addItem,
+  loadSaved,
+  removeItem,
+  save,
+  setItemsAction,
+  increaseCartItemAmount,
+  CART_STORAGE_KEY
+} from "../actions";
 import CartItem from "../../../../../../helpers/types/CartItem";
 import localStorageHelper from "../../../../../../helpers/localStorage";
 import { ApplicationState } from "../../../../../../../src/store";
+import Product from "../../../../../../helpers/types/Product";
 
 jest.mock(".../../../../../../helpers/localStorage");
 const mockedLocalStorageHelper = mocked(localStorageHelper, true);
@@ -21,7 +30,7 @@ describe("components > app > shop > cart > actions", () => {
 
   describe("addItem()", () => {
     test("when no existing item should add to the items list", async () => {
-      const dispatches = await Thunk(addItem).withState(FAKE_STATE).execute(FAKE_ADD_ITEM);
+      const dispatches = await Thunk(addItem).withState(FAKE_STATE).execute(FAKE_ADD_PRODUCT);
 
       const expected = [ ...FAKE_ITEMS, FAKE_ADD_ITEM ];
 
@@ -34,7 +43,7 @@ describe("components > app > shop > cart > actions", () => {
         ...FAKE_STATE,
         shop: { cart: { items: [ ...FAKE_ITEMS, { ...FAKE_ADD_ITEM, amount: 1 } ] } }
       };
-      const dispatches = await Thunk(addItem).withState(state).execute(FAKE_ADD_ITEM);
+      const dispatches = await Thunk(addItem).withState(state).execute(FAKE_ADD_PRODUCT);
 
       const expected = [ ...FAKE_ITEMS, { ...FAKE_ADD_ITEM, amount: 2 } ];
 
@@ -47,12 +56,39 @@ describe("components > app > shop > cart > actions", () => {
         ...FAKE_STATE,
         shop: { cart: { items: [ { ...FAKE_ADD_ITEM, amount: 1 } ] } }
       };
-      const dispatches = await Thunk(addItem).withState(state).execute(FAKE_ADD_ITEM);
+      const dispatches = await Thunk(addItem).withState(state).execute(FAKE_ADD_PRODUCT);
 
       const expected = [ { ...FAKE_ADD_ITEM, amount: 2 } ];
 
       expect(dispatches).toHaveLength(2);
       expect(dispatches[0].getAction()).toEqual(setItemsAction(expected));
+    });
+  });
+
+  describe("increaseCartItemAmount()", () => {
+    test("should increase the amount", async () => {
+      const dispatches = await Thunk(increaseCartItemAmount)
+        .withState(FAKE_STATE)
+        .execute(ID_ONLY_ONE_ITEM);
+
+      const itemToIncrease = FAKE_ITEMS.find(it => it.id === ID_ONLY_ONE_ITEM) as CartItem;
+      const indexToRemove = findIndex(FAKE_ITEMS, it => it.id === ID_ONLY_ONE_ITEM);
+      const expected = [
+        ...FAKE_ITEMS.slice(0, indexToRemove),
+        { ...itemToIncrease, amount: itemToIncrease.amount + 1 },
+        ...FAKE_ITEMS.slice(indexToRemove + 1, FAKE_ITEMS.length)
+      ];
+
+      expect(dispatches).toHaveLength(2);
+      expect(dispatches[0].getAction()).toEqual(setItemsAction(expected));
+    });
+
+    test("when no exist such item should do nothing", async () => {
+      const dispatches = await Thunk(increaseCartItemAmount)
+        .withState(FAKE_STATE)
+        .execute("non-existing-id");
+
+      expect(dispatches).toHaveLength(0);
     });
   });
 
@@ -85,11 +121,10 @@ describe("components > app > shop > cart > actions", () => {
       expect(dispatches[0].getAction()).toEqual(setItemsAction(expected));
     });
 
-    test("when no exist such item should return same state items", async () => {
+    test("when no exist such item should do nothing", async () => {
       const dispatches = await Thunk(removeItem).withState(FAKE_STATE).execute("non-existing-id");
 
-      expect(dispatches).toHaveLength(1);
-      expect(dispatches[0].getAction()).toEqual(setItemsAction(FAKE_ITEMS));
+      expect(dispatches).toHaveLength(0);
     });
   });
 
@@ -137,6 +172,16 @@ describe("components > app > shop > cart > actions", () => {
     name: "Name - Add",
     price: 5,
     amount: 1
+  };
+
+  const FAKE_ADD_PRODUCT: Product = {
+    id: FAKE_ADD_ITEM.id,
+    image_url: FAKE_ADD_ITEM.imageUrl,
+    productName: FAKE_ADD_ITEM.name,
+    price: FAKE_ADD_ITEM.price,
+    favorite: 0,
+    productDescription: "desc",
+    stock: 33
   };
 
   const ID_ONLY_ONE_ITEM = "id-only-one";

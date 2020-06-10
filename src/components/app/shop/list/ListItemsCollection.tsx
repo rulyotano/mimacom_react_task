@@ -6,7 +6,7 @@ import Pagination from "@material-ui/lab/Pagination";
 import { Product } from "../../../../helpers/types";
 import ListItem from "./ListItem";
 
-const ListItemsCollection: React.FunctionComponent<ItemsProps> = ({ data }) => {
+const ListItemsCollection: React.FunctionComponent<ItemsProps> = ({ data, addToCart }) => {
   const PAGE_SIZE = 12;
   const totalPages = Math.ceil(data.length / PAGE_SIZE);
 
@@ -23,7 +23,7 @@ const ListItemsCollection: React.FunctionComponent<ItemsProps> = ({ data }) => {
       <Grid container spacing={1}>
         {pagedItems.map(it => (
           <Grid key={it.id} item md={3} sm={4}>
-            <ListItem product={it} />
+            <ListItem product={it} addToCart={addToCart}/>
           </Grid>
         ))}
       </Grid>
@@ -36,6 +36,7 @@ const ListItemsCollection: React.FunctionComponent<ItemsProps> = ({ data }) => {
 
 interface ItemsProps {
   data: Product[];
+  addToCart: Function;
 }
 
 export default ListItemsCollection;

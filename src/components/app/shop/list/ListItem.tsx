@@ -21,7 +21,7 @@ const useStyles = makeStyles(styles);
 const useGlobalStyles = makeStyles(globalStyles);
 
 const ListItem: React.FunctionComponent<ListItemProps> = (props: ListItemProps) => {
-  const { product } = props;
+  const { product, addToCart } = props;
   const classes = useStyles();
   const classesGlobal = useGlobalStyles();
 
@@ -51,7 +51,7 @@ const ListItem: React.FunctionComponent<ListItemProps> = (props: ListItemProps) 
           <FavoriteIcon />
         </IconButton>
         <Typography className={classesGlobal.overflowText}>{product.stock} left</Typography>
-        <Button>
+        <Button onClick={() => addToCart(product)}>
           <AddIcon /> Add
         </Button>
       </CardActions>
@@ -61,6 +61,7 @@ const ListItem: React.FunctionComponent<ListItemProps> = (props: ListItemProps) 
 
 interface ListItemProps {
   product: Product;
+  addToCart: Function;
 }
 
 export default ListItem;
