@@ -25,7 +25,7 @@ function mapDispatchToProps(
   dispatch: ThunkDispatch<ApplicationState, unknown, KnownShopListAction | SetItemsAction>
 ) {
   return {
-    load: () => dispatch(load()),
+    load: (favorite: boolean = false) => dispatch(load(favorite)),
     addToCart: (item: Product) => {
       dispatch(addItem(item));
     },

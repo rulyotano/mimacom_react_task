@@ -22,10 +22,16 @@ describe("components > app > shop > list > actions", () => {
     test("when all ok should set isLoading, make one http get request and then dispatch data is loaded", async () => {
       const dispatches = await Thunk(load).execute();
 
-      expect(mockedHttp.get).toHaveBeenCalledWith(SHOP_URL);
+      expect(mockedHttp.get).toHaveBeenCalledWith(SHOP_URL, {});
       expect(dispatches).toHaveLength(2);
       expect(dispatches[0].getAction()).toEqual(setIsLoadingAction(true));
       expect(dispatches[1].getAction()).toEqual(dataLoadedAction(FAKE_RESPONSE));
+    });
+
+    test("when favorite argument should make request with favorite = 1", async () => {
+      const dispatches = await Thunk(load).execute(true);
+
+      expect(mockedHttp.get).toHaveBeenCalledWith(SHOP_URL, { favorite: 1 });
     });
 
     test("on error should only set and unset is loading", async () => {

@@ -22,7 +22,8 @@ export default (theme: Theme) =>
       display: "flex"
     },
     listContainer: {
-      flexGrow: 1
+      flexGrow: 1,
+      position: "relative"
     },
     listCartContainer: {
       width: theme.spacing(60)
@@ -45,5 +46,13 @@ export default (theme: Theme) =>
     verticalDivider: {
       marginRight: theme.spacing(1),
       marginLeft: theme.spacing(1)
+    },
+    favoritesButton: {
+      position: "absolute",
+      bottom: theme.spacing(10),
+      right: theme.spacing(4)
+    },
+    favoritesButtonActive: {
+      color: theme.palette.error.light
     }
   });
