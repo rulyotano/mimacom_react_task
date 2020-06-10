@@ -19,6 +19,7 @@
     "react-scripts": "3.4.1",
     "redux": "4.0.5",
     "redux-thunk": "2.3.0",
+    "reselect": "^4.0.0",
     "url-join": "^4.0.1"
   },
   "devDependencies": {
@@ -33,6 +34,7 @@
     "@types/react-redux": "7.1.9",
     "@types/react-router": "5.1.7",
     "@types/react-router-dom": "5.1.5",
+    "@types/reselect": "^2.2.0",
     "@types/redux-testkit": "^1.0.5",
     "@types/url-join": "^4.0.0",
     "@typescript-eslint/parser": "^3.1.0",

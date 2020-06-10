@@ -5,19 +5,27 @@ import { ApplicationState } from "../../../../store";
 import { load } from "./_duck/actions";
 import { KnownShopListAction } from "./_duck/types";
 import { getData, getIsLoading } from "./_duck/selectors";
+import { addItem } from "../cart/_duck/actions";
+import { SetItemsAction } from "../cart/_duck/types";
+import { getCartCount } from "../cart/_duck/selectors";
+import { Product } from "../../../../helpers/types";
 
 function mapStateToProps(state: ApplicationState) {
   return {
     data: getData(state),
-    isLoading: getIsLoading(state)
+    isLoading: getIsLoading(state),
+    cartCount: getCartCount(state)
   };
 }
 
 function mapDispatchToProps(
-  dispatch: ThunkDispatch<ApplicationState, unknown, KnownShopListAction>
+  dispatch: ThunkDispatch<ApplicationState, unknown, KnownShopListAction | SetItemsAction>
 ) {
   return {
-    load: () => dispatch(load())
+    load: () => dispatch(load()),
+    addToCart: (item: Product) => {
+      dispatch(addItem(item));
+    }
   };
 }
 
