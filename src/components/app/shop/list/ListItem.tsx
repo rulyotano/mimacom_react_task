@@ -21,10 +21,11 @@ const useStyles = makeStyles(styles);
 const useGlobalStyles = makeStyles(globalStyles);
 
 const ListItem: React.FunctionComponent<ListItemProps> = (props: ListItemProps) => {
-  const { product, addToCart } = props;
+  const { product, addToCart, toggleFavorite, favoriteSubmitItemId } = props;
   const classes = useStyles();
   const classesGlobal = useGlobalStyles();
 
+  const isSubmittingFavorite = Boolean(favoriteSubmitItemId);
   return (
     <Card className={classes.card}>
       <CardMedia className={classes.media} image={product.image_url} title={product.productName} />
@@ -47,7 +48,11 @@ const ListItem: React.FunctionComponent<ListItemProps> = (props: ListItemProps) 
         </Tooltip>
       </CardContent>
       <CardActions className={clsx(classesGlobal.containerSpaceBetween, classes.cardActions)}>
-        <IconButton className={clsx({ [classesGlobal.favoriteColor]: product.favorite })}>
+        <IconButton
+          onClick={() => toggleFavorite(product.id)}
+          className={clsx({ [classesGlobal.favoriteColor]: product.favorite })}
+          disabled={isSubmittingFavorite}
+        >
           <FavoriteIcon />
         </IconButton>
         <Typography className={classesGlobal.overflowText}>{product.stock} left</Typography>
@@ -62,6 +67,8 @@ const ListItem: React.FunctionComponent<ListItemProps> = (props: ListItemProps) 
 interface ListItemProps {
   product: Product;
   addToCart: Function;
+  favoriteSubmitItemId: string | null;
+  toggleFavorite: Function;
 }
 
 export default ListItem;
