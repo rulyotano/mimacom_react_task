@@ -7,6 +7,8 @@
 trigger:
 - master
 
+pr: none
+
 pool:
   vmImage: 'ubuntu-latest'
 
@@ -15,6 +17,14 @@ steps:
   inputs:
     versionSpec: '12.x'
   displayName: 'Install Node.js'
+
+- task: FileTransform@1
+  inputs:
+    folderPath: '$(Build.SourcesDirectory)/'
+    enableXmlTransform: false
+    targetFiles: './src/settings.json'
+
+
 
 - script: |
     npm install
