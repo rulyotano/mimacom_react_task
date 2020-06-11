@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
@@ -13,15 +12,12 @@ const useStyles = makeStyles(styles);
 
 const Cart: React.FunctionComponent<CartProps> = props => {
   const { items, totalPrice, addItem, removeItem } = props;
-  const history = useHistory();
 
   const classes = useStyles();
 
-  const goBack = () => history.goBack();
-
   return (
     <Box>
-      <SectionHeader title="Cart" backToUrl="#" backOnClick={goBack} />
+      <SectionHeader title="Cart" backToUrl="/shop" />
       <div className={classes.cartListContainer}>
         <div className={classes.cartItemsContainer}>
           {items.map(it => (

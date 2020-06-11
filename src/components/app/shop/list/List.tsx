@@ -3,7 +3,7 @@ import clsx from "clsx";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
-import { useRouteMatch, useParams, useHistory } from "react-router";
+import { useParams, useHistory } from "react-router";
 import IconButton from "@material-ui/core/IconButton";
 import Fab from "@material-ui/core/Fab";
 import Badge from "@material-ui/core/Badge";
@@ -30,7 +30,6 @@ export const List: React.FunctionComponent<ListPropsProps> = (props: ListPropsPr
     toggleFavorite,
     favoriteSubmitItemId
   } = props;
-  const match = useRouteMatch();
   const history = useHistory();
   const params = useParams<ExpectedParams>();
   const { favorites } = params;
@@ -42,7 +41,7 @@ export const List: React.FunctionComponent<ListPropsProps> = (props: ListPropsPr
     if (isFavorites) {
       history.push("/shop");
     } else {
-      history.push(`${match.url}/favorites`);
+      history.push("/shop/favorites");
     }
   };
 

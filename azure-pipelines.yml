@@ -18,13 +18,19 @@ steps:
     versionSpec: '12.x'
   displayName: 'Install Node.js'
 
-- task: FileTransform@1
+- task: Bash@3
   inputs:
-    folderPath: '$(Build.SourcesDirectory)/'
-    enableXmlTransform: false
-    targetFiles: './src/settings.json'
-
-
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      
+      echo 'Replace settings in json'
+      
+      echo 'Move to ./src folder'
+      cd ./src
+      
+      echo 'Replace api key'
+      jq -c '.api = "$(apiServerUrl)"' settings.json > tmp.$$.json && mv tmp.$$.json settings.json
 
 - script: |
     npm install
