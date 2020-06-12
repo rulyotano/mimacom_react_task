@@ -7,6 +7,7 @@ import Pagination from "@material-ui/lab/Pagination";
 import { Product } from "../../../../helpers/types";
 import ListItem from "./ListItem";
 import styles from "./styles";
+import NoItems from "../../../common/components/noItems";
 
 const useStyles = makeStyles(styles);
 
@@ -14,7 +15,8 @@ const ListItemsCollection: React.FunctionComponent<ItemsProps> = ({
   data,
   addToCart,
   favoriteSubmitItemId,
-  toggleFavorite
+  toggleFavorite,
+  isFavoriteList
 }) => {
   const PAGE_SIZE = 12;
   const totalPages = Math.ceil(data.length / PAGE_SIZE);
@@ -28,6 +30,10 @@ const ListItemsCollection: React.FunctionComponent<ItemsProps> = ({
 
   const pageIndex = page - 1;
   const pagedItems = _(data).drop(PAGE_SIZE * pageIndex).take(PAGE_SIZE).value();
+
+  const noItemsText = isFavoriteList ? "You doesn't have favorite items" : "No items found";
+
+  if (data.length === 0) return <NoItems text={noItemsText} />;
 
   return (
     <React.Fragment>
@@ -61,6 +67,7 @@ interface ItemsProps {
   addToCart: Function;
   favoriteSubmitItemId: string | null;
   toggleFavorite: Function;
+  isFavoriteList?: boolean;
 }
 
 export default ListItemsCollection;
