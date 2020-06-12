@@ -29,7 +29,9 @@ export default (theme: Theme) =>
       width: theme.spacing(60)
     },
     listFullHeightContainer: {
-      height: `calc(100vh - ${theme.spacing(8)}px)`,
+      [theme.breakpoints.up("md")]: {
+        height: `calc(100vh - ${theme.spacing(8)}px)`
+      },
       width: "100%",
       display: "flex",
       flexDirection: "column",
@@ -37,8 +39,10 @@ export default (theme: Theme) =>
     },
     listFullHeightBody: {
       flexGrow: 1,
-      overflowY: "auto",
-      overflowX: "hidden"
+      [theme.breakpoints.up("md")]: {
+        overflowY: "auto",
+        overflowX: "hidden"
+      },
     },
     listFullHeightFooter: {
       height: theme.spacing(12)

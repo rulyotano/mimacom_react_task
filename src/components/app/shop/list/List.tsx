@@ -31,10 +31,10 @@ export const List: React.FunctionComponent<ListPropsProps> = (props: ListPropsPr
     favoriteSubmitItemId
   } = props;
   const history = useHistory();
+  const classes = useStyles();
   const params = useParams<ExpectedParams>();
   const { favorites } = params;
 
-  const classes = useStyles();
   const isFavorites = Boolean(favorites);
   const favoriteText = isFavorites ? "Show all items" : "Show favorite items";
   const onFavoriteClick = () => {
@@ -79,6 +79,7 @@ export const List: React.FunctionComponent<ListPropsProps> = (props: ListPropsPr
               addToCart={addToCart}
               toggleFavorite={toggleFavorite}
               favoriteSubmitItemId={favoriteSubmitItemId}
+              isFavoriteList={isFavorites}
             />
             <Tooltip title={favoriteText}>
               <Fab

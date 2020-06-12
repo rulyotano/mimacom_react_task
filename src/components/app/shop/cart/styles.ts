@@ -4,7 +4,9 @@ import createStyles from "@material-ui/core/styles/createStyles";
 export default (theme: Theme) =>
   createStyles({
     cartListContainer: {
-      height: `calc(100vh - ${theme.spacing(8)}px)`,
+      [theme.breakpoints.up("md")]: {
+        height: `calc(100vh - ${theme.spacing(8)}px)`
+      },
       width: "100%",
       minWidth: theme.spacing(40),
       display: "flex",
@@ -13,7 +15,9 @@ export default (theme: Theme) =>
     },
     cartItemsContainer: {
       flexGrow: 1,
-      overflow: "auto"
+      [theme.breakpoints.up("md")]: {
+        overflow: "auto"
+      }
     },
     cartCheckoutContainer: {
       height: theme.spacing(12),

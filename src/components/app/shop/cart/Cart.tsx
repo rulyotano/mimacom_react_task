@@ -7,6 +7,7 @@ import CartItem from "../../../../helpers/types/CartItem";
 import styles from "./styles";
 import Price from "../../../common/components/price";
 import CartListItem from "./CartListItem";
+import NoItems from "../../../common/components/noItems";
 
 const useStyles = makeStyles(styles);
 
@@ -15,6 +16,7 @@ const Cart: React.FunctionComponent<CartProps> = props => {
 
   const classes = useStyles();
 
+  const showNoItemsText = items.length === 0;
   return (
     <Box>
       <SectionHeader title="Cart" backToUrl="/shop" />
@@ -23,6 +25,7 @@ const Cart: React.FunctionComponent<CartProps> = props => {
           {items.map(it => (
             <CartListItem key={it.id} item={it} addItem={addItem} removeItem={removeItem} />
           ))}
+          {showNoItemsText ? <NoItems text="Your shopping cart is empty"/> : null}
         </div>
         <div className={classes.cartCheckoutContainer}>
           <Button variant="outlined">Checkout</Button>
