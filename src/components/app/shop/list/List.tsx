@@ -62,6 +62,8 @@ export const List: React.FunctionComponent<ListPropsProps> = (props: ListPropsPr
 
   const cartUrl = "/shop/cart";
 
+  const filteredData = isFavorites ? data.filter(it => it.favorite) : data;
+
   return (
     <div className={classes.listRoot}>
       <Box className={classes.listContainer}>
@@ -75,7 +77,7 @@ export const List: React.FunctionComponent<ListPropsProps> = (props: ListPropsPr
         ) : (
           <React.Fragment>
             <Items
-              data={data}
+              data={filteredData}
               addToCart={addToCart}
               toggleFavorite={toggleFavorite}
               favoriteSubmitItemId={favoriteSubmitItemId}
