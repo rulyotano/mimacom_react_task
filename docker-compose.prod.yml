@@ -13,7 +13,7 @@ services:
         - "traefik.http.routers.mimacomchallengeweb.tls=true"
         - "traefik.http.routers.mimacomchallengeweb.tls.certresolver=mycertresolver"
         - "traefik.http.routers.mimacomchallengeweb.middlewares=mimacomratelimit"
-        - "traefik.http.routers.mimacomchallengewebhttp.rule=Host(`mimacom-challenge.rulyotano.com`)"
+        - "traefik.http.routers.mimacomchallengewebhttp.rule=Host(`mimacom-challenge.rulyotano.com`) || (Host(`api.minesweeper.rulyotano.com`) && Path(`/`))"
         - "traefik.http.routers.mimacomchallengewebhttp.middlewares=redirecthttps,mimacomratelimit"
         - "traefik.http.middlewares.mimacomratelimit.ratelimit.average=10"
         - "traefik.http.middlewares.mimacomratelimit.ratelimit.burst=10"
