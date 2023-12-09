@@ -6,7 +6,7 @@ on:
     branches:
       - master
     paths:
-      - .github/workflows/web.build.dev.yml
+      - .github/workflows/web.build.yml
 
 jobs:
   build-image-and-push:
