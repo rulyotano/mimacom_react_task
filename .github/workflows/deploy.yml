@@ -1,0 +1,24 @@
+name: Deploy
+
+on: 
+  workflow_dispatch:
+
+env:
+  DOCKER_COMPOSE_FILE_URL: https://github.com/rulyotano/mimacom_react_task/blob/master/docker-compose.prod.yml
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ssh connect and deploy
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
+          script: |
+            wget ${{ env.DOCKER_COMPOSE_FILE_URL }} -O docker-compose.yml
+            docker stack deploy -c docker-compose.yml mimacom-challenge
+            rm docker-compose.*
+  
