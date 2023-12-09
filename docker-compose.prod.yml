@@ -15,7 +15,7 @@ services:
         - "traefik.http.routers.mimacomchallengeweb.middlewares=mimacomratelimit"
         - "traefik.http.routers.mimacomchallengewebhttp.rule=Host(`mimacom-challenge.rulyotano.com`)"
         - "traefik.http.routers.mimacomchallengewebhttp.middlewares=redirecthttps,mimacomratelimit"
-        - "traefik.http.middlewares.mimacomratelimit.ratelimit.average=3"
+        - "traefik.http.middlewares.mimacomratelimit.ratelimit.average=10"
     networks:
       - traefik
 
