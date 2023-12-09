@@ -5,5 +5,4 @@ RUN npm install -g json-server
 COPY --chown=node:node .docker/server-api ./
 EXPOSE 3000
 USER node
-ENTRYPOINT [ "json-server" ]
-CMD ["/app/db.json"]
+CMD ["json-server", "-H", "0.0.0.0", "/app/db.json"]

@@ -6,14 +6,16 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
-      target: build
+      target: prod
+      args:
+        - API_URL=http://localhost:5001
     ports:
-      - 5001:80
+      - 5000:80
   api:
     image: mimacom-task:api
     build:
       dockerfile: Dockerfile.api
       context: .
     ports:
-      - 3000:3000
+      - 5001:3000
 
