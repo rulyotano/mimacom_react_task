@@ -1,5 +1,4 @@
-version: "3.8"
-
+version: "3.9"
 services:
   mimacom-challenge-web:
     image: rulyotano/mimacom-challenge-web:0.0.1
