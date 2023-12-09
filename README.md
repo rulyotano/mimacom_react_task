@@ -33,5 +33,6 @@ Following the requirements:
 > - PATCH /grocery/:id: update the item stock
 > - GET /grocery?favorite=1: get the list of favorite items
 
-# view the result
-The latest version is published at [this azure link](https://mimacom-shop.azurewebsites.net/)
+# View the result
+Run in local: Go to repo's main directory and run `docker compose up`
+The latest version is published at [mimacom-challenge.rulyotano.com](https://mimacom-challenge.rulyotano.com)

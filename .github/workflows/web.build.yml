@@ -1,0 +1,21 @@
+name: Web Image Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - .github/workflows/web.build.dev.yml
+
+jobs:
+  build-image-and-push:
+    uses: ./.github/workflows/build.base.yml
+    secrets: inherit
+    permissions:
+      packages: write
+    with:
+      version: 0.0.1
+      imagename: mimacom-challenge-web
+      imagesfile: Dockerfile
+      imagebuildargs: API_URL=https://api.mimacom-challenge.rulyotano.com
