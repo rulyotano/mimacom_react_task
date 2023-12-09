@@ -35,4 +35,4 @@ Following the requirements:
 
 # View the result
 Run in local: Go to repo's main directory and run `docker compose up`
-The latest version is published at [mimacom-chalenge.rulyotano.com](https://mimacom-chalenge.rulyotano.com)
+The latest version is published at [mimacom-challenge.rulyotano.com](https://mimacom-challenge.rulyotano.com)

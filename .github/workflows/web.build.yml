@@ -18,3 +18,4 @@ jobs:
       version: 0.0.1
       imagename: mimacom-challenge-web
       imagesfile: Dockerfile
+      imagebuildargs: API_URL=https://api.mimacom-challenge.rulyotano.com

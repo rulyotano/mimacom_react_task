@@ -13,6 +13,9 @@ on:
         required: false
         type: string
         default: prod
+      imagebuildargs:
+          required: false
+          type: string
       version:
         required: true
         type: string
@@ -55,3 +58,4 @@ jobs:
           cache-to: type=gha,mode=max
           file: ${{ inputs.imagesfile }}
           platforms: linux/amd64
+          build-args: ${{ inputs.imagebuildargs }}

@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  mimacom-challenge-web:
+    image: rulyotano/mimacom-challenge-web:0.0.1
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        max_attempts: 2
+      labels:
+        - "traefik.http.services.mimacomchallengeweb.loadbalancer.server.port=80"
+        - "traefik.http.routers.mimacomchallengeweb.rule=Host(`mimacom-challenge.rulyotano.com`)"
+        - "traefik.http.routers.mimacomchallengeweb.tls=true"
+        - "traefik.http.routers.mimacomchallengeweb.tls.certresolver=mycertresolver"
+        - "traefik.http.routers.mimacomchallengeweb.middlewares=mimacomratelimit"
+        - "traefik.http.routers.mimacomchallengewebhttp.rule=Host(`mimacom-challenge.rulyotano.com`)"
+        - "traefik.http.routers.mimacomchallengewebhttp.middlewares=redirecthttps,mimacomratelimit"
+        - "traefik.http.middlewares.mimacomratelimit.ratelimit.average=3"
+    networks:
+      - traefik
+
+  mimacom-challenge-api:
+    image: rulyotano/mimacom-challenge-api:0.0.1
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        max_attempts: 2
+      labels:
+        - "traefik.http.services.mimacomchallengeapi.loadbalancer.server.port=3000"
+        - "traefik.http.routers.mimacomchallengeapi.rule=Host(`api.mimacom-challenge.rulyotano.com`) && PathPrefix(`/grocery`)"
+        - "traefik.http.routers.mimacomchallengeapi.tls=true"
+        - "traefik.http.routers.mimacomchallengeapi.tls.certresolver=mycertresolver"
+        - "traefik.http.routers.mimacomchallengeapi.middlewares=mimacomratelimit"
+        - "traefik.http.routers.mimacomchallengeapihttp.rule=Host(`api.mimacom-challenge.rulyotano.com`) && PathPrefix(`/grocery`)"
+        - "traefik.http.routers.mimacomchallengeapihttp.middlewares=redirecthttps,mimacomratelimit"
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true
+
