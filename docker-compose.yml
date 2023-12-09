@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  web:
+    image: mimacom-task:web
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: build
+    ports:
+      - 5001:80
+  api:
+    image: mimacom-task:api
+    build:
+      dockerfile: Dockerfile.api
+      context: .
+    ports:
+      - 3000:3000
+
